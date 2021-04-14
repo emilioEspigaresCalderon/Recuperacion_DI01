@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace Recuperacion_Tarea_DI01
 {
-    public partial class Recuperacion_Tarea_DI01 : Form
+    public partial class MainForm : Form
     {
-        public Recuperacion_Tarea_DI01()
+        public MainForm()
         {
             InitializeComponent();
         }
 
-        private void Recuperacion_Tarea_DI01_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
 
         }

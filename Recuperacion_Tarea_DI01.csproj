@@ -48,11 +48,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper.cs" />
-    <Compile Include="Recuperacion_Tarea_DI01.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Recuperacion_Tarea_DI01.Designer.cs">
-      <DependentUpon>Recuperacion_Tarea_DI01.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,8 +65,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Recuperacion_Tarea_DI01.resx">
-      <DependentUpon>Recuperacion_Tarea_DI01.cs</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

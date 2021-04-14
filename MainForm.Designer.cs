@@ -1,7 +1,9 @@
 ﻿
+using System;
+
 namespace Recuperacion_Tarea_DI01
 {
-    partial class Recuperacion_Tarea_DI01
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -115,6 +117,11 @@ namespace Recuperacion_Tarea_DI01
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        private void Recuperacion_Tarea_DI01_Load(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
