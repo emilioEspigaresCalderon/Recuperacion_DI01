@@ -80,6 +80,7 @@ namespace Recuperacion_Tarea_DI01
             this.searchButton.TabIndex = 4;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // englishButton
             // 
@@ -99,7 +100,7 @@ namespace Recuperacion_Tarea_DI01
             this.frenchButton.Text = "French";
             this.frenchButton.UseVisualStyleBackColor = true;
             // 
-            // Recuperacion_Tarea_DI01
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -111,7 +112,7 @@ namespace Recuperacion_Tarea_DI01
             this.Controls.Add(this.comboBoxSubcategoria);
             this.Controls.Add(this.comboBoxCategoria);
             this.Controls.Add(this.listViewResults);
-            this.Name = "Recuperacion_Tarea_DI01";
+            this.Name = "MainForm";
             this.Text = "Recuperacion Tarea DI01";
             this.Load += new System.EventHandler(this.Recuperacion_Tarea_DI01_Load);
             this.ResumeLayout(false);

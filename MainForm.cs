@@ -21,5 +21,10 @@ namespace Recuperacion_Tarea_DI01
         {
 
         }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
