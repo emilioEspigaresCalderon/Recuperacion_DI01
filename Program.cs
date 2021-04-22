@@ -16,7 +16,7 @@ namespace Recuperacion_Tarea_DI01
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Recuperacion_Tarea_DI01());
+            Application.Run(new MainForm());
         }
     }
 }

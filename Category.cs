@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 
 namespace Recuperacion_Tarea_DI01
 {
-    public class ProductModel
+    public class Category
     {
         public int id { get; set; }
         public string name { get; set; }
-        public string description { get; set; }
-        public float priceList { get; set; }
 
         public string FullInfo
         {
             get
             {
-                return $"{ name } | { description } | { priceList }$";
+                return $"{ name }";
             }
         }
     }

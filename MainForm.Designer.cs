@@ -31,23 +31,14 @@ namespace Recuperacion_Tarea_DI01
         /// </summary>
         private void InitializeComponent()
         {
-            this.listViewResults = new System.Windows.Forms.ListView();
             this.comboBoxCategoria = new System.Windows.Forms.ComboBox();
             this.comboBoxSubcategoria = new System.Windows.Forms.ComboBox();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.searchButton = new System.Windows.Forms.Button();
-            this.englishButton = new System.Windows.Forms.Button();
-            this.frenchButton = new System.Windows.Forms.Button();
+            this.listBoxResults = new System.Windows.Forms.ListBox();
+            this.buttonFrench = new System.Windows.Forms.Button();
+            this.buttonEnglish = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // listViewResults
-            // 
-            this.listViewResults.HideSelection = false;
-            this.listViewResults.Location = new System.Drawing.Point(12, 119);
-            this.listViewResults.Name = "listViewResults";
-            this.listViewResults.Size = new System.Drawing.Size(794, 384);
-            this.listViewResults.TabIndex = 0;
-            this.listViewResults.UseCompatibleStateImageBehavior = false;
             // 
             // comboBoxCategoria
             // 
@@ -56,6 +47,7 @@ namespace Recuperacion_Tarea_DI01
             this.comboBoxCategoria.Name = "comboBoxCategoria";
             this.comboBoxCategoria.Size = new System.Drawing.Size(257, 24);
             this.comboBoxCategoria.TabIndex = 1;
+            this.comboBoxCategoria.SelectedIndexChanged += new System.EventHandler(this.comboBoxCategoria_SelectedIndexChanged);
             // 
             // comboBoxSubcategoria
             // 
@@ -82,39 +74,50 @@ namespace Recuperacion_Tarea_DI01
             this.searchButton.UseVisualStyleBackColor = true;
             this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
-            // englishButton
+            // listBoxResults
             // 
-            this.englishButton.Location = new System.Drawing.Point(709, 12);
-            this.englishButton.Name = "englishButton";
-            this.englishButton.Size = new System.Drawing.Size(75, 35);
-            this.englishButton.TabIndex = 5;
-            this.englishButton.Text = "English";
-            this.englishButton.UseVisualStyleBackColor = true;
+            this.listBoxResults.FormattingEnabled = true;
+            this.listBoxResults.ItemHeight = 16;
+            this.listBoxResults.Location = new System.Drawing.Point(12, 115);
+            this.listBoxResults.Name = "listBoxResults";
+            this.listBoxResults.Size = new System.Drawing.Size(794, 388);
+            this.listBoxResults.TabIndex = 7;
             // 
-            // frenchButton
+            // buttonFrench
             // 
-            this.frenchButton.Location = new System.Drawing.Point(709, 64);
-            this.frenchButton.Name = "frenchButton";
-            this.frenchButton.Size = new System.Drawing.Size(75, 35);
-            this.frenchButton.TabIndex = 6;
-            this.frenchButton.Text = "French";
-            this.frenchButton.UseVisualStyleBackColor = true;
+            this.buttonFrench.Location = new System.Drawing.Point(687, 67);
+            this.buttonFrench.Name = "buttonFrench";
+            this.buttonFrench.Size = new System.Drawing.Size(119, 42);
+            this.buttonFrench.TabIndex = 9;
+            this.buttonFrench.Text = "French";
+            this.buttonFrench.UseVisualStyleBackColor = true;
+            this.buttonFrench.Click += new System.EventHandler(this.buttonFrench_Click);
+            // 
+            // buttonEnglish
+            // 
+            this.buttonEnglish.Location = new System.Drawing.Point(687, 14);
+            this.buttonEnglish.Name = "buttonEnglish";
+            this.buttonEnglish.Size = new System.Drawing.Size(119, 38);
+            this.buttonEnglish.TabIndex = 10;
+            this.buttonEnglish.Text = "English";
+            this.buttonEnglish.UseVisualStyleBackColor = true;
+            this.buttonEnglish.Click += new System.EventHandler(this.buttonEnglish_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(818, 515);
-            this.Controls.Add(this.frenchButton);
-            this.Controls.Add(this.englishButton);
+            this.Controls.Add(this.buttonEnglish);
+            this.Controls.Add(this.buttonFrench);
+            this.Controls.Add(this.listBoxResults);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.comboBoxSubcategoria);
             this.Controls.Add(this.comboBoxCategoria);
-            this.Controls.Add(this.listViewResults);
             this.Name = "MainForm";
             this.Text = "Recuperacion Tarea DI01";
-            this.Load += new System.EventHandler(this.Recuperacion_Tarea_DI01_Load);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -122,18 +125,17 @@ namespace Recuperacion_Tarea_DI01
 
         private void Recuperacion_Tarea_DI01_Load(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+           
         }
 
         #endregion
-
-        private System.Windows.Forms.ListView listViewResults;
         private System.Windows.Forms.ComboBox comboBoxCategoria;
         private System.Windows.Forms.ComboBox comboBoxSubcategoria;
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Button searchButton;
-        private System.Windows.Forms.Button englishButton;
-        private System.Windows.Forms.Button frenchButton;
+        private System.Windows.Forms.ListBox listBoxResults;
+        private System.Windows.Forms.Button buttonFrench;
+        private System.Windows.Forms.Button buttonEnglish;
     }
 }
 
