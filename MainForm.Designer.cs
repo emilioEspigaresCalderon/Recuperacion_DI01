@@ -38,6 +38,7 @@ namespace Recuperacion_Tarea_DI01
             this.listBoxResults = new System.Windows.Forms.ListBox();
             this.buttonFrench = new System.Windows.Forms.Button();
             this.buttonEnglish = new System.Windows.Forms.Button();
+            this.checkBoxFilters = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // comboBoxCategoria
@@ -56,6 +57,7 @@ namespace Recuperacion_Tarea_DI01
             this.comboBoxSubcategoria.Name = "comboBoxSubcategoria";
             this.comboBoxSubcategoria.Size = new System.Drawing.Size(257, 24);
             this.comboBoxSubcategoria.TabIndex = 2;
+            this.comboBoxSubcategoria.SelectedIndexChanged += new System.EventHandler(this.comboBoxSubcategoria_SelectedIndexChanged);
             // 
             // textBoxSearch
             // 
@@ -103,11 +105,22 @@ namespace Recuperacion_Tarea_DI01
             this.buttonEnglish.UseVisualStyleBackColor = true;
             this.buttonEnglish.Click += new System.EventHandler(this.buttonEnglish_Click);
             // 
+            // checkBoxFilters
+            // 
+            this.checkBoxFilters.AutoSize = true;
+            this.checkBoxFilters.Location = new System.Drawing.Point(424, 73);
+            this.checkBoxFilters.Name = "checkBoxFilters";
+            this.checkBoxFilters.Size = new System.Drawing.Size(93, 21);
+            this.checkBoxFilters.TabIndex = 11;
+            this.checkBoxFilters.Text = "Use filters";
+            this.checkBoxFilters.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(818, 515);
+            this.Controls.Add(this.checkBoxFilters);
             this.Controls.Add(this.buttonEnglish);
             this.Controls.Add(this.buttonFrench);
             this.Controls.Add(this.listBoxResults);
@@ -136,6 +149,7 @@ namespace Recuperacion_Tarea_DI01
         private System.Windows.Forms.ListBox listBoxResults;
         private System.Windows.Forms.Button buttonFrench;
         private System.Windows.Forms.Button buttonEnglish;
+        private System.Windows.Forms.CheckBox checkBoxFilters;
     }
 }
 

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Recuperacion_Tarea_DI01
 {
-    public class ProductModel
+    public class ProductModels
     {
-        public int id { get; set; }
+        public int ProductModelID { get; set; }
+        public string ProductModel { get; set; }
         public string name { get; set; }
         public string description { get; set; }
         public float priceList { get; set; }
@@ -17,7 +18,7 @@ namespace Recuperacion_Tarea_DI01
         {
             get
             {
-                return $"{ name } | { description } | { priceList }$";
+                return $"{ ProductModel } | { description } | { priceList }$";
             }
         }
     }

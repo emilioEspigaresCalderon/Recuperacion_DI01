@@ -12,28 +12,65 @@ namespace Recuperacion_Tarea_DI01
 {
     public class DataAccess
     {
-        public List<ProductModel> GetProductModels(String product, String language)
+        public List<ProductModels> GetProductModels(String product, String language, int subcategoryID, Boolean check)
         {
             string connString = ConfigurationManager.ConnectionStrings["AdventureWorks2016"].ConnectionString;
 
             using (IDbConnection conn = new SqlConnection(connString))
             {
-                List<ProductModel> products = new List<ProductModel>();
+                List<ProductModels> products = new List<ProductModels>();
 
-                string select = "SELECT DISTINCT " +
-                    "Production.ProductModel.ProductModelID, " +
-                    "Production.ProductModel.Name AS ProductModel, Production.ProductDescription.Description, " +
-                    "Production.Product.Name,Production.Product.ListPrice AS priceList " +
-                    "FROM " +
-                    "Production.Product " +
-                    "INNER JOIN Production.ProductSubcategory ON Production.Product.ProductSubcategoryID = Production.ProductSubcategory.ProductSubcategoryID " +
-                    "INNER JOIN Production.ProductCategory ON Production.ProductSubcategory.ProductCategoryID = Production.ProductCategory.ProductCategoryID " +
-                    "INNER JOIN Production.ProductModel ON Production.Product.ProductModelID = Production.ProductModel.ProductModelID " +
-                    "INNER JOIN Production.ProductModelProductDescriptionCulture ON Production.ProductModel.ProductModelID = Production.ProductModelProductDescriptionCulture.ProductModelID " +
-                    "INNER JOIN Production.ProductDescription ON Production.ProductModelProductDescriptionCulture.ProductDescriptionID = Production.ProductDescription.ProductDescriptionID " +
-                    $"WHERE ProductModelProductDescriptionCulture.CultureID = '{language}' AND Product.ProductModelID IS NOT NULL AND Production.ProductModel.Name LIKE '%{product}%' ORDER BY ProductModel";
-                products = conn.Query<ProductModel>(select).ToList();
-                return products;
+                if (check)
+                {
+                    string select = "SELECT DISTINCT " +
+                        "Production.ProductModel.ProductModelID, " +
+                        "Production.ProductModel.Name AS ProductModel, Production.ProductDescription.Description, " +
+                        "Production.Product.Name,Production.Product.ListPrice AS priceList " +
+                        "FROM " +
+                        "Production.Product " +
+                        "INNER JOIN Production.ProductSubcategory ON Production.Product.ProductSubcategoryID = Production.ProductSubcategory.ProductSubcategoryID " +
+                        "INNER JOIN Production.ProductCategory ON Production.ProductSubcategory.ProductCategoryID = Production.ProductCategory.ProductCategoryID " +
+                        "INNER JOIN Production.ProductModel ON Production.Product.ProductModelID = Production.ProductModel.ProductModelID " +
+                        "INNER JOIN Production.ProductModelProductDescriptionCulture ON Production.ProductModel.ProductModelID = Production.ProductModelProductDescriptionCulture.ProductModelID " +
+                        "INNER JOIN Production.ProductDescription ON Production.ProductModelProductDescriptionCulture.ProductDescriptionID = Production.ProductDescription.ProductDescriptionID " +
+                        $"WHERE ProductModelProductDescriptionCulture.CultureID = '{ language }' AND Product.ProductModelID IS NOT NULL AND Production.ProductModel.Name LIKE '%{ product }%' AND Production.Product.ProductSubcategoryID = '{ subcategoryID }' ORDER BY ProductModel";
+                    products = conn.Query<ProductModels>(select).ToList();
+                }
+                else
+                {
+                    string select = "SELECT DISTINCT " +
+                        "Production.ProductModel.ProductModelID, " +
+                        "Production.ProductModel.Name AS ProductModel, Production.ProductDescription.Description, " +
+                        "Production.Product.Name,Production.Product.ListPrice AS priceList " +
+                        "FROM " +
+                        "Production.Product " +
+                        "INNER JOIN Production.ProductSubcategory ON Production.Product.ProductSubcategoryID = Production.ProductSubcategory.ProductSubcategoryID " +
+                        "INNER JOIN Production.ProductCategory ON Production.ProductSubcategory.ProductCategoryID = Production.ProductCategory.ProductCategoryID " +
+                        "INNER JOIN Production.ProductModel ON Production.Product.ProductModelID = Production.ProductModel.ProductModelID " +
+                        "INNER JOIN Production.ProductModelProductDescriptionCulture ON Production.ProductModel.ProductModelID = Production.ProductModelProductDescriptionCulture.ProductModelID " +
+                        "INNER JOIN Production.ProductDescription ON Production.ProductModelProductDescriptionCulture.ProductDescriptionID = Production.ProductDescription.ProductDescriptionID " +
+                        $"WHERE ProductModelProductDescriptionCulture.CultureID = '{ language }' AND Product.ProductModelID IS NOT NULL AND Production.ProductModel.Name LIKE '%{ product }%' ORDER BY ProductModel";
+                    products = conn.Query<ProductModels>(select).ToList();
+                }
+                
+
+                List<ProductModels> noRepeat = new List<ProductModels>();
+                foreach (var prod in products)
+                {
+                    Boolean x = true;
+                    foreach (var prod2 in noRepeat)
+                    {
+                        if (prod2.ProductModelID == prod.ProductModelID)
+                        {
+                            x = false;
+                        }
+                    }
+                    if (x == true)
+                    {
+                        noRepeat.Add(prod);
+                    }
+                }
+                return noRepeat;
             }
         }
 
@@ -45,7 +82,7 @@ namespace Recuperacion_Tarea_DI01
             {
                 List<Category> category = new List<Category>();
 
-                string select = "SELECT ProductCategoryID, Name FROM Production.ProductCategory";
+                string select = "SELECT ProductCategoryID, Name FROM Production.ProductCategory ORDER BY ProductCategoryID";
                 category = conn.Query<Category>(select).ToList();
                 return category;
             }
@@ -59,7 +96,7 @@ namespace Recuperacion_Tarea_DI01
             {
                 List<Category> subcategory = new List<Category>();
 
-                string select = $"SELECT ProductSubcategoryID, Name FROM Production.ProductSubcategory WHERE ProductCategoryID = '{productCategoryID}'";
+                string select = $"SELECT ProductSubcategoryID, Name FROM Production.ProductSubcategory WHERE ProductCategoryID = '{productCategoryID}' ORDER BY ProductSubcategoryID";
                 subcategory = conn.Query<Category>(select).ToList();
                 return subcategory;
             }

@@ -12,10 +12,13 @@ namespace Recuperacion_Tarea_DI01
 {
     public partial class MainForm : Form
     {
-        List<ProductModel> pm = new List<ProductModel>();
+        List<ProductModels> pm = new List<ProductModels>();
         List<Category> categories = new List<Category>();
         List<Category> subcategories = new List<Category>();
+        Category c = new Category();
         String language = "en";
+        int subcategoryID;
+        Boolean check;
         DataAccess db = new DataAccess();
         public MainForm()
         {
@@ -31,12 +34,17 @@ namespace Recuperacion_Tarea_DI01
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            pm = db.GetProductModels(textBoxSearch.Text, language);
+            if (checkBoxFilters.Checked)
+                check = true;
+            else
+                check = false;
+            pm = db.GetProductModels(textBoxSearch.Text, language, subcategoryID, check);
             reload();
         }
 
         private void reload()
         {
+            
             listBoxResults.DataSource = pm;
             listBoxResults.DisplayMember = "FullInfo";
 
@@ -58,10 +66,15 @@ namespace Recuperacion_Tarea_DI01
 
         private void comboBoxCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            subcategories = db.GetSubcategory(comboBoxCategoria.SelectedIndex);
+            subcategories = db.GetSubcategory(comboBoxCategoria.SelectedIndex + 1);
 
             comboBoxSubcategoria.DataSource = subcategories;
             comboBoxSubcategoria.DisplayMember = "FullInfo";
+        }
+
+        private void comboBoxSubcategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            subcategoryID = comboBoxSubcategoria.SelectedIndex + 1;
         }
     }
 }
