@@ -72,7 +72,7 @@ namespace Recuperacion_Tarea_DI01
             // labelSizes
             // 
             this.labelSizes.AutoSize = true;
-            this.labelSizes.Location = new System.Drawing.Point(46, 185);
+            this.labelSizes.Location = new System.Drawing.Point(46, 130);
             this.labelSizes.Name = "labelSizes";
             this.labelSizes.Size = new System.Drawing.Size(42, 17);
             this.labelSizes.TabIndex = 5;
@@ -81,7 +81,7 @@ namespace Recuperacion_Tarea_DI01
             // labelColors
             // 
             this.labelColors.AutoSize = true;
-            this.labelColors.Location = new System.Drawing.Point(40, 233);
+            this.labelColors.Location = new System.Drawing.Point(40, 179);
             this.labelColors.Name = "labelColors";
             this.labelColors.Size = new System.Drawing.Size(48, 17);
             this.labelColors.TabIndex = 6;

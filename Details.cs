@@ -14,7 +14,6 @@ namespace Recuperacion_Tarea_DI01
     {
         public int id;
         List<Products> product = new List<Products>();
-        Button colorsButton = new Button();
         string[] sizes;
         string[] colors;
         public Details(int id)
@@ -31,6 +30,9 @@ namespace Recuperacion_Tarea_DI01
 
             textBoxName.Text = product[0].ProductModel;
             textBoxDescription.Text = product[0].description;
+
+            textBoxName.ReadOnly = true;
+            textBoxDescription.ReadOnly = true;
 
             int numProducts = product.Count;
             sizes = new string[numProducts];
@@ -51,9 +53,26 @@ namespace Recuperacion_Tarea_DI01
             for (int i = 0; i < product.Count; i++)
             {
                 Button sizeButton = new Button();
-                sizeButton.Text = product[i].size;
-                sizeButton.Location = new Point(50 + x, 145);
+                Button colorButton = new Button();
+
+                if (product[i].size == null)
+                    sizeButton.Text = "NULL";
+                else
+                    sizeButton.Text = product[i].size;
+                sizeButton.Location = new Point(50 + x, 100);
                 Controls.Add(sizeButton);
+
+                if ((i == 0) || (product[i].color != product[i - 1].color))
+                {
+                    if (product[i].color == null)
+                        colorButton.Text = "NULL";
+                    else
+                        colorButton.Text = product[i].color;
+
+                    colorButton.Location = new Point(50 + x, 140);
+                    Controls.Add(colorButton);
+                }
+
                 x += 100;
             }
         }
