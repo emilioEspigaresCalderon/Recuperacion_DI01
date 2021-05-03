@@ -84,6 +84,7 @@ namespace Recuperacion_Tarea_DI01
             this.listBoxResults.Name = "listBoxResults";
             this.listBoxResults.Size = new System.Drawing.Size(794, 388);
             this.listBoxResults.TabIndex = 7;
+            this.listBoxResults.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxResults_MouseDoubleClick);
             // 
             // buttonFrench
             // 

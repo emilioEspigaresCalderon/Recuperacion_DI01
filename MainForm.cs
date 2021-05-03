@@ -12,14 +12,16 @@ namespace Recuperacion_Tarea_DI01
 {
     public partial class MainForm : Form
     {
+        DataAccess db = new DataAccess();
         List<ProductModels> pm = new List<ProductModels>();
         List<Category> categories = new List<Category>();
         List<Category> subcategories = new List<Category>();
         Category c = new Category();
         String language = "en";
-        int subcategoryID;
+        int subcategoryID, categoryID;
         Boolean check;
-        DataAccess db = new DataAccess();
+        public int idProductModel;
+        
         public MainForm()
         {
             InitializeComponent();            
@@ -66,7 +68,8 @@ namespace Recuperacion_Tarea_DI01
 
         private void comboBoxCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            subcategories = db.GetSubcategory(comboBoxCategoria.SelectedIndex + 1);
+            categoryID = comboBoxCategoria.SelectedIndex + 1;
+            subcategories = db.GetSubcategory(categoryID);
 
             comboBoxSubcategoria.DataSource = subcategories;
             comboBoxSubcategoria.DisplayMember = "FullInfo";
@@ -74,7 +77,28 @@ namespace Recuperacion_Tarea_DI01
 
         private void comboBoxSubcategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            subcategoryID = comboBoxSubcategoria.SelectedIndex + 1;
+            switch(categoryID)
+            {
+                case 1:
+                    subcategoryID = comboBoxSubcategoria.SelectedIndex + 1;
+                    break;
+                case 2:
+                    subcategoryID = comboBoxSubcategoria.SelectedIndex + 4;
+                    break;
+                case 3:
+                    subcategoryID = comboBoxSubcategoria.SelectedIndex + 18;
+                    break;
+                case 4:
+                    subcategoryID = comboBoxSubcategoria.SelectedIndex + 26;
+                    break;
+            }
+        }
+
+        private void listBoxResults_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int id = ((ProductModels)listBoxResults.SelectedItem).ProductModelID;
+            Details details = new Details(id);
+            details.ShowDialog();
         }
     }
 }

@@ -96,9 +96,34 @@ namespace Recuperacion_Tarea_DI01
             {
                 List<Category> subcategory = new List<Category>();
 
-                string select = $"SELECT ProductSubcategoryID, Name FROM Production.ProductSubcategory WHERE ProductCategoryID = '{productCategoryID}' ORDER BY ProductSubcategoryID";
+                string select = $"SELECT ProductSubcategoryID, Name FROM Production.ProductSubcategory WHERE ProductCategoryID = '{ productCategoryID }' ORDER BY ProductSubcategoryID";
                 subcategory = conn.Query<Category>(select).ToList();
                 return subcategory;
+            }
+        }
+
+        public List<Products> GetProducts(int id)
+        {
+            string connString = ConfigurationManager.ConnectionStrings["AdventureWorks2016"].ConnectionString;
+
+            using (IDbConnection conn = new SqlConnection(connString))
+            {
+                List<Products> details = new List<Products>();
+
+                string select = "SELECT DISTINCT " +
+                        "Production.ProductModel.Name AS ProductModel, Production.ProductDescription.Description, " +
+                        "Production.Product.ListPrice AS priceList, " +
+                        "Production.Product.Size, Production.Product.Color " +
+                        "FROM " +
+                        "Production.Product " +
+                        "INNER JOIN Production.ProductSubcategory ON Production.Product.ProductSubcategoryID = Production.ProductSubcategory.ProductSubcategoryID " +
+                        "INNER JOIN Production.ProductCategory ON Production.ProductSubcategory.ProductCategoryID = Production.ProductCategory.ProductCategoryID " +
+                        "INNER JOIN Production.ProductModel ON Production.Product.ProductModelID = Production.ProductModel.ProductModelID " +
+                        "INNER JOIN Production.ProductModelProductDescriptionCulture ON Production.ProductModel.ProductModelID = Production.ProductModelProductDescriptionCulture.ProductModelID " +
+                        "INNER JOIN Production.ProductDescription ON Production.ProductModelProductDescriptionCulture.ProductDescriptionID = Production.ProductDescription.ProductDescriptionID " +
+                        $"WHERE Product.ProductModelID = '{ id }' AND ProductModelProductDescriptionCulture.CultureID = 'en' ORDER BY ProductModel";
+                details = conn.Query<Products>(select).ToList();
+                return details;
             }
         }
     }
