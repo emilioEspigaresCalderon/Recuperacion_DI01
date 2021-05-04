@@ -35,6 +35,8 @@ namespace Recuperacion_Tarea_DI01
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.labelSizes = new System.Windows.Forms.Label();
             this.labelColors = new System.Windows.Forms.Label();
+            this.labelPrice = new System.Windows.Forms.Label();
+            this.textBoxPrice = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // labelName
@@ -87,11 +89,29 @@ namespace Recuperacion_Tarea_DI01
             this.labelColors.TabIndex = 6;
             this.labelColors.Text = "Colors";
             // 
+            // labelPrice
+            // 
+            this.labelPrice.AutoSize = true;
+            this.labelPrice.Location = new System.Drawing.Point(48, 93);
+            this.labelPrice.Name = "labelPrice";
+            this.labelPrice.Size = new System.Drawing.Size(40, 17);
+            this.labelPrice.TabIndex = 7;
+            this.labelPrice.Text = "Price";
+            // 
+            // textBoxPrice
+            // 
+            this.textBoxPrice.Location = new System.Drawing.Point(94, 93);
+            this.textBoxPrice.Name = "textBoxPrice";
+            this.textBoxPrice.Size = new System.Drawing.Size(141, 22);
+            this.textBoxPrice.TabIndex = 8;
+            // 
             // Details
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBoxPrice);
+            this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.labelColors);
             this.Controls.Add(this.labelSizes);
             this.Controls.Add(this.textBoxDescription);
@@ -114,5 +134,7 @@ namespace Recuperacion_Tarea_DI01
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Label labelSizes;
         private System.Windows.Forms.Label labelColors;
+        private System.Windows.Forms.Label labelPrice;
+        private System.Windows.Forms.TextBox textBoxPrice;
     }
 }

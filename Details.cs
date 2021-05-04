@@ -30,9 +30,11 @@ namespace Recuperacion_Tarea_DI01
 
             textBoxName.Text = product[0].ProductModel;
             textBoxDescription.Text = product[0].description;
+            textBoxPrice.Text = product[0].priceList.ToString() + "$";
 
             textBoxName.ReadOnly = true;
             textBoxDescription.ReadOnly = true;
+            textBoxPrice.ReadOnly = true;
 
             int numProducts = product.Count;
             sizes = new string[numProducts];
@@ -55,12 +57,16 @@ namespace Recuperacion_Tarea_DI01
                 Button sizeButton = new Button();
                 Button colorButton = new Button();
 
-                if (product[i].size == null)
-                    sizeButton.Text = "NULL";
-                else
-                    sizeButton.Text = product[i].size;
-                sizeButton.Location = new Point(50 + x, 100);
-                Controls.Add(sizeButton);
+                if ((i == 0) || (product[i].size != product[i - 1].size))
+                {
+                    if (product[i].size == null)
+                        sizeButton.Text = "NULL";
+                    else
+                        sizeButton.Text = product[i].size;
+
+                    sizeButton.Location = new Point(50 + x, 100);
+                    Controls.Add(sizeButton);
+                }
 
                 if ((i == 0) || (product[i].color != product[i - 1].color))
                 {
@@ -72,7 +78,6 @@ namespace Recuperacion_Tarea_DI01
                     colorButton.Location = new Point(50 + x, 140);
                     Controls.Add(colorButton);
                 }
-
                 x += 100;
             }
         }
