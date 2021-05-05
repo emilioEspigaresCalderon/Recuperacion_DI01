@@ -15,11 +15,8 @@ namespace Recuperacion_Tarea_DI01
         DataAccess db = new DataAccess();
         List<ProductModels> pm = new List<ProductModels>();
         List<Category> categories = new List<Category>();
-        List<Category> subcategories = new List<Category>();
         Category c = new Category();
-        String language = "en";
         int subcategoryID, categoryID;
-        Boolean check;
         public int idProductModel;
         
         public MainForm()
@@ -30,23 +27,18 @@ namespace Recuperacion_Tarea_DI01
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            categories = db.GetCategory();
+            categories = db.GetCategory();            
             reload();
         }
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            if (checkBoxFilters.Checked)
-                check = true;
-            else
-                check = false;
-            pm = db.GetProductModels(textBoxSearch.Text, language, subcategoryID, check);
+            pm = db.GetProductModels(textBoxSearch.Text, subcategoryID);
             reload();
         }
 
         private void reload()
         {
-            
             listBoxResults.DataSource = pm;
             listBoxResults.DisplayMember = "FullInfo";
 
@@ -54,22 +46,16 @@ namespace Recuperacion_Tarea_DI01
             comboBoxCategoria.DisplayMember = "FullInfo";
         }
 
-        private void buttonEnglish_Click(object sender, EventArgs e)
-        {
-            language = "en";
-            searchButton_Click(sender, e);
-        }
-
-        private void buttonFrench_Click(object sender, EventArgs e)
-        {
-            language = "Fr";
-            searchButton_Click(sender, e);
-        }
-
         private void comboBoxCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
+            List<Category> subcategories = new List<Category>();
+            List<Category> aux = new List<Category>();
             categoryID = comboBoxCategoria.SelectedIndex + 1;
-            subcategories = db.GetSubcategory(categoryID);
+            aux = db.GetSubcategory(categoryID);
+
+            subcategories.Add(c);
+            foreach (Category c in aux)
+                subcategories.Add(c);
 
             comboBoxSubcategoria.DataSource = subcategories;
             comboBoxSubcategoria.DisplayMember = "FullInfo";
@@ -77,21 +63,30 @@ namespace Recuperacion_Tarea_DI01
 
         private void comboBoxSubcategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch(categoryID)
+            if (comboBoxSubcategoria.SelectedIndex != 0)
             {
-                case 1:
-                    subcategoryID = comboBoxSubcategoria.SelectedIndex + 1;
-                    break;
-                case 2:
-                    subcategoryID = comboBoxSubcategoria.SelectedIndex + 4;
-                    break;
-                case 3:
-                    subcategoryID = comboBoxSubcategoria.SelectedIndex + 18;
-                    break;
-                case 4:
-                    subcategoryID = comboBoxSubcategoria.SelectedIndex + 26;
-                    break;
+                switch (categoryID)
+                {
+                    case 1:
+                        subcategoryID = comboBoxSubcategoria.SelectedIndex;
+                        break;
+                    case 2:
+                        subcategoryID = comboBoxSubcategoria.SelectedIndex + 3;
+                        break;
+                    case 3:
+                        subcategoryID = comboBoxSubcategoria.SelectedIndex + 17;
+                        break;
+                    case 4:
+                        subcategoryID = comboBoxSubcategoria.SelectedIndex + 25;
+                        break;
+                }
             }
+            else
+            {
+                subcategoryID = 0;
+            }
+            pm = db.GetProductModels(textBoxSearch.Text, subcategoryID);
+            reload();
         }
 
         private void listBoxResults_MouseDoubleClick(object sender, MouseEventArgs e)

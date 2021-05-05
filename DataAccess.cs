@@ -12,7 +12,7 @@ namespace Recuperacion_Tarea_DI01
 {
     public class DataAccess
     {
-        public List<ProductModels> GetProductModels(String product, String language, int subcategoryID, Boolean check)
+        public List<ProductModels> GetProductModels(String product, int subcategoryID)
         {
             string connString = ConfigurationManager.ConnectionStrings["AdventureWorks2016"].ConnectionString;
 
@@ -20,7 +20,7 @@ namespace Recuperacion_Tarea_DI01
             {
                 List<ProductModels> products = new List<ProductModels>();
 
-                if (check)
+                if (subcategoryID == 0)
                 {
                     string select = "SELECT DISTINCT " +
                         "Production.ProductModel.ProductModelID, " +
@@ -33,11 +33,10 @@ namespace Recuperacion_Tarea_DI01
                         "INNER JOIN Production.ProductModel ON Production.Product.ProductModelID = Production.ProductModel.ProductModelID " +
                         "INNER JOIN Production.ProductModelProductDescriptionCulture ON Production.ProductModel.ProductModelID = Production.ProductModelProductDescriptionCulture.ProductModelID " +
                         "INNER JOIN Production.ProductDescription ON Production.ProductModelProductDescriptionCulture.ProductDescriptionID = Production.ProductDescription.ProductDescriptionID " +
-                        $"WHERE ProductModelProductDescriptionCulture.CultureID = '{ language }' AND Product.ProductModelID IS NOT NULL AND Production.ProductModel.Name LIKE '%{ product }%' AND Production.Product.ProductSubcategoryID = '{ subcategoryID }' ORDER BY ProductModel";
+                        $"WHERE ProductModelProductDescriptionCulture.CultureID = 'en' AND Product.ProductModelID IS NOT NULL AND Production.ProductModel.Name LIKE '%{ product }%' ORDER BY ProductModel";
                     products = conn.Query<ProductModels>(select).ToList();
                 }
-                else
-                {
+                else {
                     string select = "SELECT DISTINCT " +
                         "Production.ProductModel.ProductModelID, " +
                         "Production.ProductModel.Name AS ProductModel, Production.ProductDescription.Description, " +
@@ -49,11 +48,11 @@ namespace Recuperacion_Tarea_DI01
                         "INNER JOIN Production.ProductModel ON Production.Product.ProductModelID = Production.ProductModel.ProductModelID " +
                         "INNER JOIN Production.ProductModelProductDescriptionCulture ON Production.ProductModel.ProductModelID = Production.ProductModelProductDescriptionCulture.ProductModelID " +
                         "INNER JOIN Production.ProductDescription ON Production.ProductModelProductDescriptionCulture.ProductDescriptionID = Production.ProductDescription.ProductDescriptionID " +
-                        $"WHERE ProductModelProductDescriptionCulture.CultureID = '{ language }' AND Product.ProductModelID IS NOT NULL AND Production.ProductModel.Name LIKE '%{ product }%' ORDER BY ProductModel";
+                        $"WHERE ProductModelProductDescriptionCulture.CultureID = 'en' AND Product.ProductModelID IS NOT NULL AND Production.ProductModel.Name LIKE '%{ product }%' AND Production.Product.ProductSubcategoryID = '{ subcategoryID }' ORDER BY ProductModel";
                     products = conn.Query<ProductModels>(select).ToList();
                 }
                 
-
+                
                 List<ProductModels> noRepeat = new List<ProductModels>();
                 foreach (var prod in products)
                 {
@@ -96,8 +95,11 @@ namespace Recuperacion_Tarea_DI01
             {
                 List<Category> subcategory = new List<Category>();
 
-                string select = $"SELECT ProductSubcategoryID, Name FROM Production.ProductSubcategory WHERE ProductCategoryID = '{ productCategoryID }' ORDER BY ProductSubcategoryID";
-                subcategory = conn.Query<Category>(select).ToList();
+                if (productCategoryID != 0)
+                {
+                    string select = $"SELECT ProductSubcategoryID, Name FROM Production.ProductSubcategory WHERE ProductCategoryID = '{ productCategoryID }' ORDER BY ProductSubcategoryID";
+                    subcategory = conn.Query<Category>(select).ToList();
+                }
                 return subcategory;
             }
         }
