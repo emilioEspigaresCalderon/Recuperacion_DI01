@@ -12,7 +12,6 @@ namespace Recuperacion_Tarea_DI01
 {
     public partial class MainForm : Form
     {
-        DataAccess db = new DataAccess();
         List<ProductModels> pm = new List<ProductModels>();
         List<Category> categories = new List<Category>();
         Category c = new Category();
@@ -27,13 +26,13 @@ namespace Recuperacion_Tarea_DI01
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            categories = db.GetCategory();            
+            categories = DataAccess.GetCategory();            
             reload();
         }
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            pm = db.GetProductModels(textBoxSearch.Text, subcategoryID);
+            pm = DataAccess.GetProductModels(textBoxSearch.Text, subcategoryID);
             reload();
         }
 
@@ -51,7 +50,7 @@ namespace Recuperacion_Tarea_DI01
             List<Category> subcategories = new List<Category>();
             List<Category> aux = new List<Category>();
             categoryID = comboBoxCategoria.SelectedIndex + 1;
-            aux = db.GetSubcategory(categoryID);
+            aux = DataAccess.GetSubcategory(categoryID);
 
             subcategories.Add(c);
             foreach (Category c in aux)
@@ -85,7 +84,7 @@ namespace Recuperacion_Tarea_DI01
             {
                 subcategoryID = 0;
             }
-            pm = db.GetProductModels(textBoxSearch.Text, subcategoryID);
+            pm = DataAccess.GetProductModels(textBoxSearch.Text, subcategoryID);
             reload();
         }
 

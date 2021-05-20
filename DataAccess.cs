@@ -10,9 +10,9 @@ using System.Data.SqlClient;
 
 namespace Recuperacion_Tarea_DI01
 {
-    public class DataAccess
+    class DataAccess
     {
-        public List<ProductModels> GetProductModels(String product, int subcategoryID)
+        public static List<ProductModels> GetProductModels(String product, int subcategoryID)
         {
             string connString = ConfigurationManager.ConnectionStrings["AdventureWorks2016"].ConnectionString;
 
@@ -73,7 +73,7 @@ namespace Recuperacion_Tarea_DI01
             }
         }
 
-        public List<Category> GetCategory()
+        public static List<Category> GetCategory()
         {
             string connString = ConfigurationManager.ConnectionStrings["AdventureWorks2016"].ConnectionString;
 
@@ -87,7 +87,7 @@ namespace Recuperacion_Tarea_DI01
             }
         }
 
-        public List<Category> GetSubcategory(int productCategoryID)
+        public static List<Category> GetSubcategory(int productCategoryID)
         {
             string connString = ConfigurationManager.ConnectionStrings["AdventureWorks2016"].ConnectionString;
 
@@ -104,7 +104,7 @@ namespace Recuperacion_Tarea_DI01
             }
         }
 
-        public List<Products> GetProducts(int id)
+        public static List<Products> GetProducts(int id)
         {
             string connString = ConfigurationManager.ConnectionStrings["AdventureWorks2016"].ConnectionString;
 

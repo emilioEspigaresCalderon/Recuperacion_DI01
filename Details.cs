@@ -14,8 +14,8 @@ namespace Recuperacion_Tarea_DI01
     {
         public int id;
         List<Products> product = new List<Products>();
-        string[] sizes;
-        string[] colors;
+        List<string> sizes = new List<string>();
+        List<string> colors = new List<string>();
         public Details(int id)
         {
             InitializeComponent();
@@ -25,8 +25,7 @@ namespace Recuperacion_Tarea_DI01
 
         private void Details_Load(object sender, EventArgs e)
         {
-            DataAccess da = new DataAccess();
-            product = da.GetProducts(id);
+            product = DataAccess.GetProducts(id);
 
             textBoxName.Text = product[0].ProductModel;
             textBoxDescription.Text = product[0].description;
@@ -35,50 +34,73 @@ namespace Recuperacion_Tarea_DI01
             textBoxName.ReadOnly = true;
             textBoxDescription.ReadOnly = true;
             textBoxPrice.ReadOnly = true;
+            textBoxProductID.ReadOnly = true;
 
             int numProducts = product.Count;
-            sizes = new string[numProducts];
-            colors = new string[numProducts];
-
             for (int i = 0; i < numProducts; i++)
             {
-                sizes[i] = product[i].size;
-                colors[i] = product[i].color;
+                sizes.Add(product[i].size);
+                colors.Add(product[i].color);
             }
-            
+            sizes = removeDuplicates(sizes);
+            colors = removeDuplicates(colors);
             createButtons();
+        }
+
+        public List<string> removeDuplicates(List<string> duplicated)
+        {
+            List<string> noDuplicated = new List<string>();
+            foreach (var prod in duplicated)
+            {
+                Boolean x = true;
+                foreach (var prod2 in noDuplicated)
+                {
+                    if (prod2 == prod)
+                    {
+                        x = false;
+                    }
+                }
+                if (x == true)
+                {
+                    noDuplicated.Add(prod);
+                }
+            }
+            return noDuplicated;
         }
 
         public void createButtons()
         {
             int x = 20;
-            for (int i = 0; i < product.Count; i++)
+            int y = 20;
+
+            foreach (string s in sizes)
             {
                 Button sizeButton = new Button();
+
+                if (s == null)
+                    sizeButton.Text = "NULL";
+                else
+                    sizeButton.Text = s;
+            
+                sizeButton.Location = new Point(50 + x, 100);
+                Controls.Add(sizeButton);
+
+                x += 100;
+            }
+
+            foreach (string c in colors)
+            {
                 Button colorButton = new Button();
 
-                if ((i == 0) || (product[i].size != product[i - 1].size))
-                {
-                    if (product[i].size == null)
-                        sizeButton.Text = "NULL";
-                    else
-                        sizeButton.Text = product[i].size;
+                if (c == null)
+                    colorButton.Text = "NULL";
+                else
+                    colorButton.Text = c;
 
-                    sizeButton.Location = new Point(50 + x, 100);
-                    Controls.Add(sizeButton);
-                }
+                colorButton.Location = new Point(50 + y, 140);
+                Controls.Add(colorButton);
 
-                if ((i == 0) || (product[i].color != product[i - 1].color))
-                {
-                    if (product[i].color == null)
-                        colorButton.Text = "NULL";
-                    else
-                        colorButton.Text = product[i].color;
-
-                    colorButton.Location = new Point(50 + x, 140);
-                    Controls.Add(colorButton);
-                }
-                x += 100;
+                y += 100;
             }
         }
     }

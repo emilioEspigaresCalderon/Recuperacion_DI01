@@ -37,6 +37,8 @@ namespace Recuperacion_Tarea_DI01
             this.labelColors = new System.Windows.Forms.Label();
             this.labelPrice = new System.Windows.Forms.Label();
             this.textBoxPrice = new System.Windows.Forms.TextBox();
+            this.labelProductID = new System.Windows.Forms.Label();
+            this.textBoxProductID = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // labelName
@@ -105,11 +107,29 @@ namespace Recuperacion_Tarea_DI01
             this.textBoxPrice.Size = new System.Drawing.Size(141, 22);
             this.textBoxPrice.TabIndex = 8;
             // 
+            // labelProductID
+            // 
+            this.labelProductID.AutoSize = true;
+            this.labelProductID.Location = new System.Drawing.Point(300, 93);
+            this.labelProductID.Name = "labelProductID";
+            this.labelProductID.Size = new System.Drawing.Size(74, 17);
+            this.labelProductID.TabIndex = 9;
+            this.labelProductID.Text = "Product ID";
+            // 
+            // textBoxProductID
+            // 
+            this.textBoxProductID.Location = new System.Drawing.Point(380, 93);
+            this.textBoxProductID.Name = "textBoxProductID";
+            this.textBoxProductID.Size = new System.Drawing.Size(101, 22);
+            this.textBoxProductID.TabIndex = 10;
+            // 
             // Details
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBoxProductID);
+            this.Controls.Add(this.labelProductID);
             this.Controls.Add(this.textBoxPrice);
             this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.labelColors);
@@ -136,5 +156,7 @@ namespace Recuperacion_Tarea_DI01
         private System.Windows.Forms.Label labelColors;
         private System.Windows.Forms.Label labelPrice;
         private System.Windows.Forms.TextBox textBoxPrice;
+        private System.Windows.Forms.Label labelProductID;
+        private System.Windows.Forms.TextBox textBoxProductID;
     }
 }
