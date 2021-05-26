@@ -39,6 +39,10 @@ namespace Recuperacion_Tarea_DI01
             this.textBoxPrice = new System.Windows.Forms.TextBox();
             this.labelProductID = new System.Windows.Forms.Label();
             this.textBoxProductID = new System.Windows.Forms.TextBox();
+            this.imagePictureBox = new System.Windows.Forms.PictureBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveChangesButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // labelName
@@ -63,14 +67,14 @@ namespace Recuperacion_Tarea_DI01
             // 
             this.textBoxName.Location = new System.Drawing.Point(94, 18);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(591, 22);
+            this.textBoxName.Size = new System.Drawing.Size(694, 22);
             this.textBoxName.TabIndex = 3;
             // 
             // textBoxDescription
             // 
             this.textBoxDescription.Location = new System.Drawing.Point(94, 53);
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(591, 22);
+            this.textBoxDescription.Size = new System.Drawing.Size(694, 22);
             this.textBoxDescription.TabIndex = 4;
             // 
             // labelSizes
@@ -123,11 +127,37 @@ namespace Recuperacion_Tarea_DI01
             this.textBoxProductID.Size = new System.Drawing.Size(101, 22);
             this.textBoxProductID.TabIndex = 10;
             // 
+            // imagePictureBox
+            // 
+            this.imagePictureBox.Location = new System.Drawing.Point(94, 233);
+            this.imagePictureBox.Name = "imagePictureBox";
+            this.imagePictureBox.Size = new System.Drawing.Size(292, 205);
+            this.imagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imagePictureBox.TabIndex = 11;
+            this.imagePictureBox.TabStop = false;
+            this.imagePictureBox.Click += new System.EventHandler(this.imagePictureBox_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "File";
+            // 
+            // saveChangesButton
+            // 
+            this.saveChangesButton.Location = new System.Drawing.Point(672, 410);
+            this.saveChangesButton.Name = "saveChangesButton";
+            this.saveChangesButton.Size = new System.Drawing.Size(116, 28);
+            this.saveChangesButton.TabIndex = 12;
+            this.saveChangesButton.Text = "Save Changes";
+            this.saveChangesButton.UseVisualStyleBackColor = true;
+            this.saveChangesButton.Click += new System.EventHandler(this.saveChangesButton_Click);
+            // 
             // Details
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.saveChangesButton);
+            this.Controls.Add(this.imagePictureBox);
             this.Controls.Add(this.textBoxProductID);
             this.Controls.Add(this.labelProductID);
             this.Controls.Add(this.textBoxPrice);
@@ -141,6 +171,7 @@ namespace Recuperacion_Tarea_DI01
             this.Name = "Details";
             this.Text = "Details";
             this.Load += new System.EventHandler(this.Details_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,5 +189,8 @@ namespace Recuperacion_Tarea_DI01
         private System.Windows.Forms.TextBox textBoxPrice;
         private System.Windows.Forms.Label labelProductID;
         private System.Windows.Forms.TextBox textBoxProductID;
+        private System.Windows.Forms.PictureBox imagePictureBox;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button saveChangesButton;
     }
 }

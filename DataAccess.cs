@@ -128,5 +128,30 @@ namespace Recuperacion_Tarea_DI01
                 return details;
             }
         }
+
+        public static ProductImage GetImage(int id)
+        {
+            string connString = ConfigurationManager.ConnectionStrings["AdventureWorks2016"].ConnectionString;
+            ProductImage product = new ProductImage();
+
+            using (IDbConnection conn = new SqlConnection(connString))
+            {
+                string select = "SELECT " +
+                        "Product.ProductId, Name, ProductPhoto.ProductPhotoID, ThumbnailPhoto, ThumbnailPhotoFileName, " +
+                        "LargePhoto, LargePhotoFileName " +
+                        "FROM " +
+                        "Production.Product " +
+                        "INNER JOIN Production.ProductProductPhoto ON Product.ProductID=ProductProductPhoto.ProductID " +
+                        "INNER JOIN Production.ProductPhoto ON ProductProductPhoto.ProductPhotoID=ProductPhoto.ProductPhotoID " +
+                        $"WHERE Product.ProductModelId = '{ id }'";
+               product = conn.Query<ProductImage>(select).FirstOrDefault();
+               return product;
+            }
+        }
+
+        public static void SaveImage(string route)
+        {
+
+        }
     }
 }

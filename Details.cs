@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace Recuperacion_Tarea_DI01
     public partial class Details : Form
     {
         public int id;
+        string route;
         List<Products> product = new List<Products>();
         List<string> sizes = new List<string>();
         List<string> colors = new List<string>();
@@ -45,6 +47,7 @@ namespace Recuperacion_Tarea_DI01
             sizes = removeDuplicates(sizes);
             colors = removeDuplicates(colors);
             createButtons();
+            getImage();
         }
 
         public List<string> removeDuplicates(List<string> duplicated)
@@ -102,6 +105,30 @@ namespace Recuperacion_Tarea_DI01
 
                 y += 100;
             }
+        }
+
+        public void getImage()
+        {
+            ProductImage productImage = DataAccess.GetImage(id);
+            byte[] photo = productImage.LargePhoto;
+            MemoryStream ms = new MemoryStream(photo);
+            Image image = Image.FromStream(ms);
+            imagePictureBox.Image = image;
+        }
+
+        private void imagePictureBox_Click(object sender, EventArgs e)
+        {
+            var result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                route = openFileDialog1.FileName;
+                imagePictureBox.Image = Image.FromFile(route);
+            }
+        }
+
+        private void saveChangesButton_Click(object sender, EventArgs e)
+        {
+            DataAccess.SaveImage(route);
         }
     }
 }
