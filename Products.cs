@@ -13,5 +13,6 @@ namespace Recuperacion_Tarea_DI01
         public float priceList { get; set; }
         public string size { get; set; }
         public string color { get; set; }
+        public int productID { get; set; }
     }
 }

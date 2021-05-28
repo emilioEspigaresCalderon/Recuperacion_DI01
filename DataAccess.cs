@@ -7,6 +7,8 @@ using Dapper;
 using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
 
 namespace Recuperacion_Tarea_DI01
 {
@@ -115,7 +117,8 @@ namespace Recuperacion_Tarea_DI01
                 string select = "SELECT DISTINCT " +
                         "Production.ProductModel.Name AS ProductModel, Production.ProductDescription.Description, " +
                         "Production.Product.ListPrice AS priceList, " +
-                        "Production.Product.Size, Production.Product.Color " +
+                        "Production.Product.Size, Production.Product.Color," +
+                        "Production.Product.ProductID " +
                         "FROM " +
                         "Production.Product " +
                         "INNER JOIN Production.ProductSubcategory ON Production.Product.ProductSubcategoryID = Production.ProductSubcategory.ProductSubcategoryID " +
@@ -129,29 +132,63 @@ namespace Recuperacion_Tarea_DI01
             }
         }
 
-        public static ProductImage GetImage(int id)
+        public static ProductImage GetImage(int id, string color)
         {
             string connString = ConfigurationManager.ConnectionStrings["AdventureWorks2016"].ConnectionString;
             ProductImage product = new ProductImage();
 
             using (IDbConnection conn = new SqlConnection(connString))
             {
-                string select = "SELECT " +
-                        "Product.ProductId, Name, ProductPhoto.ProductPhotoID, ThumbnailPhoto, ThumbnailPhotoFileName, " +
-                        "LargePhoto, LargePhotoFileName " +
-                        "FROM " +
-                        "Production.Product " +
-                        "INNER JOIN Production.ProductProductPhoto ON Product.ProductID=ProductProductPhoto.ProductID " +
-                        "INNER JOIN Production.ProductPhoto ON ProductProductPhoto.ProductPhotoID=ProductPhoto.ProductPhotoID " +
-                        $"WHERE Product.ProductModelId = '{ id }'";
+                string select = "";
+
+                if (color != "NULL")
+                {
+                    select = "SELECT " +
+                            "Product.ProductId, Name, ProductPhoto.ProductPhotoID, ThumbnailPhoto, ThumbnailPhotoFileName, " +
+                            "LargePhoto, LargePhotoFileName " +
+                            "FROM " +
+                            "Production.Product " +
+                            "INNER JOIN Production.ProductProductPhoto ON Product.ProductID=ProductProductPhoto.ProductID " +
+                            "INNER JOIN Production.ProductPhoto ON ProductProductPhoto.ProductPhotoID=ProductPhoto.ProductPhotoID " +
+                            $"WHERE Product.ProductModelId = '{ id }' AND Production.Product.Color = '{ color }'";
+                } else
+                {
+                    select = "SELECT " +
+                            "Product.ProductId, Name, ProductPhoto.ProductPhotoID, ThumbnailPhoto, ThumbnailPhotoFileName, " +
+                            "LargePhoto, LargePhotoFileName " +
+                            "FROM " +
+                            "Production.Product " +
+                            "INNER JOIN Production.ProductProductPhoto ON Product.ProductID=ProductProductPhoto.ProductID " +
+                            "INNER JOIN Production.ProductPhoto ON ProductProductPhoto.ProductPhotoID=ProductPhoto.ProductPhotoID " +
+                            $"WHERE Product.ProductModelId = '{ id }'";
+                }
                product = conn.Query<ProductImage>(select).FirstOrDefault();
                return product;
             }
         }
 
-        public static void SaveImage(string route)
+        public static int SaveImage(string route, Image image)
         {
+            string connString = ConfigurationManager.ConnectionStrings["AdventureWorks2016"].ConnectionString;
+            using (IDbConnection conn = new SqlConnection(connString))
+            {
+                MemoryStream ms = new MemoryStream();
+                image.Save(ms, image.RawFormat);
+                byte[] largePhoto = ms.ToArray();
 
+                string insert = "INSERT INTO Production.ProductPhoto" +
+                    " (ThumbNailPhoto, ThumbnailPhotoFileName, LargePhoto, LargePhotoFileName) " +
+                    "VALUES (NULL, NULL, @lrgPhoto, @lrgPhotoFileName)";
+                var parametrs = new { lrgPhoto = largePhoto, lrgPhotoFileName = route };
+                int rowsAffected = conn.Execute(insert, parametrs);
+                if (rowsAffected != 1)
+                {
+                    throw new Exception("Error inserting image to DB");
+                } else
+                {
+                    return 1;
+                }
+            }
         }
     }
 }
